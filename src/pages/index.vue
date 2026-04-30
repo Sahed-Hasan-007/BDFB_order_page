@@ -16,7 +16,7 @@ type OrderStatus =
   | "Returned"
   | "Unresolved";
 
-const statuses: (OrderStatus | "Pending")[] = [
+const statuses: (OrderStatus | "All")[] = [
   "Pending", "Followup", "Confirmed", "Canceled", "Ready To Ship",
   "Shipped", "Hold-by-courier", "Delivered", "Payment-received", "Returned", "Unresolved", "All"
 ];
@@ -31,7 +31,7 @@ const periodOptions = [
 
 const tutorialOpen = ref(false)
 const period = ref("today");
-const activeStatus = ref<OrderStatus | "Pending">("Pending");
+const activeStatus = ref<OrderStatus | "All">("Pending");
 const search = ref("");
 const page = ref(1);
 const pageSize = ref(10);
@@ -201,7 +201,7 @@ const orders = ref<Order[]>([
 
 const filtered = computed(() =>
   orders.value.filter((o) => {
-    const sm = activeStatus.value === "Pending" || o.status === activeStatus.value;
+    const sm = activeStatus.value === "All" || o.status === activeStatus.value;
     const q = search.value.toLowerCase();
     const qm = !q || o.id.toLowerCase().includes(q) || o.products.some((p) => p.name.toLowerCase().includes(q));
     return sm && qm;
