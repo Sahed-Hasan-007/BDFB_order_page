@@ -315,18 +315,20 @@ function exportOrders() {
       <!-- Toolbar: search -->
       <div
         class="flex items-center justify-end px-4 py-3 border-b border-zinc-200 dark:border-zinc-700  gap-3 flex-wrap">
-        <div>
+        <div class="flex items-center gap-2">
           <div class="relative flex items-center">
             <Icon name="lucide:search" class="absolute left-2.5 w-4 h-4 text-zinc-400 pointer-events-none" />
             <input v-model="search" type="search" placeholder="Search"
-              class="h-9 pl-8 pr-3 w-52 border border-zinc-200 dark:border-zinc-700 rounded-lg text-[13px] text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 outline-none placeholder-zinc-400 dark:placeholder-zinc-600 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/10 transition-all" />
+              class="h-9 pl-8 pr-3 w-52 border border-zinc-200 dark:border-zinc-700 rounded-lg text-[13px] text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 outline-none placeholder-zinc-400 dark:placeholder-zinc-600 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/10 transition-all" />
           </div>
-
-        </div>
-        <div class="relative flex items-center">
-          <Icon name="lucide:search" class="absolute left-2.5 w-4 h-4 text-zinc-400 pointer-events-none" />
-          <input v-model="search" type="search" placeholder="Search"
-            class="h-9 pl-8 pr-3 w-52 border border-zinc-200 dark:border-zinc-700 rounded-lg text-[13px] text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 outline-none placeholder-zinc-400 dark:placeholder-zinc-600 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/10 transition-all" />
+          <div
+            class="relative flex items-center justify-center w-9 h-9 border border-zinc-200 dark:border-zinc-700 rounded-lg bg-white dark:bg-zinc-800 cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors">
+            <Icon name="material-symbols:filter-alt" class="w-4 h-4 text-zinc-600 dark:text-zinc-300" />
+            <span
+              class="absolute -top-1 -right-1 flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-orange-500 rounded-full ring-2 ring-white dark:ring-zinc-900 border border-transparent">
+              2
+            </span>
+          </div>
         </div>
       </div>
 
@@ -377,9 +379,9 @@ function exportOrders() {
               <!-- Customer -->
               <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
                 <div class="font-semibold text-zinc-900 dark:text-zinc-100 mb-0.5">{{ order.customerName
-                }}</div>
+                  }}</div>
                 <div class="text-[11px] text-zinc-500 dark:text-zinc-400 mb-0.5">{{ order.customerPhone
-                }}</div>
+                  }}</div>
                 <div class="text-[11px] text-zinc-400 dark:text-zinc-500">{{ order.customerAddress }}
                 </div>
               </td>
@@ -419,7 +421,7 @@ function exportOrders() {
               <!-- Courier -->
               <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
                 <div class="font-semibold text-zinc-800 dark:text-zinc-200 mb-0.5">{{ order.courierName
-                }}</div>
+                  }}</div>
                 <div class="text-[11px] font-mono text-zinc-400 dark:text-zinc-500">{{
                   order.courierTracking }}</div>
               </td>
