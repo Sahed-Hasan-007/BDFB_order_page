@@ -226,7 +226,7 @@ function exportOrders() {
 </script>
 
 <template>
-  <div class="p-6 font-sans text-gray-900 dark:text-zinc-100 antialiased bg-[#0a0a0b]">
+  <div class="p-6 font-sans text-gray-900 dark:text-zinc-100 antialiased bg-[#0a0a0b] min-h-screen">
 
     <!-- Page header -->
     <div class="flex items-start justify-between flex-wrap gap-4 mb-6">
@@ -379,9 +379,9 @@ function exportOrders() {
               <!-- Customer -->
               <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
                 <div class="font-semibold text-zinc-900 dark:text-zinc-100 mb-0.5">{{ order.customerName
-                }}</div>
+                  }}</div>
                 <div class="text-[11px] text-zinc-500 dark:text-zinc-400 mb-0.5">{{ order.customerPhone
-                }}</div>
+                  }}</div>
                 <div class="text-[11px] text-zinc-400 dark:text-zinc-500">{{ order.customerAddress }}
                 </div>
               </td>
@@ -421,7 +421,7 @@ function exportOrders() {
               <!-- Courier -->
               <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
                 <div class="font-semibold text-zinc-800 dark:text-zinc-200 mb-0.5">{{ order.courierName
-                }}</div>
+                  }}</div>
                 <div class="text-[11px] font-mono text-zinc-400 dark:text-zinc-500">{{
                   order.courierTracking }}</div>
               </td>
