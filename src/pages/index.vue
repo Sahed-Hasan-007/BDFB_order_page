@@ -362,18 +362,36 @@ function exportOrders() {
             <tr v-for="order in paginated" :key="order.id"
               class="hover:bg-primary-50/50 dark:hover:bg-primary-950/5 transition-colors">
               <!-- Order info -->
-              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
-                <div class="font-bold text-primary-500 mb-1">{{ order.id }}</div>
-                <div class="text-[11px] text-zinc-400 dark:text-zinc-500 mb-1.5">{{ order.date }}</div>
-                <span
-                  class="inline-block px-2 py-0.5 rounded-md text-[11px] font-semibold bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 mb-1">
-                  {{ order.deliveryType }}
-                </span>
-                <br />
-                <span class="inline-block px-2 py-0.5 rounded-md text-[11px] font-semibold mt-0.5"
-                  :class="sourceClass[order.source] ?? 'bg-zinc-100 text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300'">
-                  {{ order.source }}
-                </span>
+              <td class="px-4 py-3 border-b border-zinc-200 dark:border-zinc-700 align-top">
+
+                <!-- Order ID -->
+                <div class="text-primary-500 font-semibold text-sm mb-1">
+                  {{ order.id }}
+                </div>
+
+                <!-- Date -->
+                <div class="text-xs text-zinc-400 dark:text-zinc-500 mb-2">
+                  {{ order.date }}
+                </div>
+
+                <!-- Delivery Type Badge -->
+                <div class="flex flex-col gap-1">
+    <span
+        class="w-fit px-2.5 py-0.5 text-[11px] font-medium rounded-md
+      bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+      {{ order.deliveryType }}
+    </span>
+
+                  <!-- Source Badge -->
+                  <span
+                      class="w-fit px-2.5 py-0.5 text-[11px] font-medium rounded-md
+      border"
+                      :class="sourceClass[order.source] ??
+        'bg-orange-500/10 text-orange-400 border-orange-500/20'">
+      {{ order.source }}
+    </span>
+                </div>
+
               </td>
 
               <!-- Customer -->
