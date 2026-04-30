@@ -16,9 +16,9 @@ type OrderStatus =
     | "Returned"
     | "Unresolved";
 
-const statuses: (OrderStatus | "All")[] = [
-  "All","Pending","Followup","Confirmed","Canceled","Ready To Ship",
-  "Shipped","Hold-by-courier","Delivered","Payment-received","Returned","Unresolved",
+const statuses: (OrderStatus | "Pending")[] = [
+  "Pending","Followup","Confirmed","Canceled","Ready To Ship",
+  "Shipped","Hold-by-courier","Delivered","Payment-received","Returned","Unresolved","All"
 ];
 
 const periodOptions = [
@@ -31,7 +31,7 @@ const periodOptions = [
 
 const tutorialOpen = ref(false)
 const period       = ref("today");
-const activeStatus = ref<OrderStatus | "All">("All");
+const activeStatus = ref<OrderStatus | "Pending">("Pending");
 const search       = ref("");
 const page         = ref(1);
 const pageSize     = ref(10);
@@ -201,7 +201,7 @@ const orders = ref<Order[]>([
 
 const filtered = computed(() =>
     orders.value.filter((o) => {
-      const sm = activeStatus.value === "All" || o.status === activeStatus.value;
+      const sm = activeStatus.value === "Pending" || o.status === activeStatus.value;
       const q  = search.value.toLowerCase();
       const qm = !q || o.id.toLowerCase().includes(q) || o.products.some((p) => p.name.toLowerCase().includes(q));
       return sm && qm;
@@ -304,22 +304,22 @@ function exportOrders() {
     </div>
 
     <!-- Status tabs -->
-    <div class="bg-white flex items-center justify-center dark:bg-[#18181c] mb-5 rounded-2xl border border-zinc-200 dark:border-zinc-700 overflow-hidden shadow-sm">
+    <div class="bg-white w-fit mx-auto flex items-center justify-center dark:bg-[#18181c] mb-5 rounded-2xl border border-zinc-200 dark:border-zinc-700 overflow-hidden shadow-sm">
       <div class="flex items-center flex-wrap gap-1.5 px-4 py-3">
         <button
             v-for="s in statuses"
             :key="s"
             @click="activeStatus = s; page = 1"
             :class="[
-            'px-3 py-1.5 rounded-lg text-[12.5px] font-semibold border transition-all whitespace-nowrap',
+            'px-3 py-1.5 rounded-lg text-[13px] font-semibold border transition-all whitespace-nowrap',
             activeStatus === s
-              ? 'bg-primary-50 text-primary-700 border-primary-300 dark:bg-primary-500/10 dark:text-primary-400 dark:border-primary-500/30'
+              ? 'bg-primary-50 text-primary-700 border-primary-300 dark:bg-primary-500/10 dark:text-[#de883e] dark:border-primary-500/30'
               : 'text-zinc-500 border-transparent hover:bg-zinc-100 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-200'
           ]"
         >
           {{ s }}
           <span
-              v-if="s !== 'All'"
+              v-if="s !== 'Pending'"
               class="ml-1 text-[10px] font-bold opacity-60"
           >
             {{ orders.filter(o => o.status === s).length }}
