@@ -365,55 +365,46 @@ function exportOrders() {
               <td class="px-4 py-3 border-b border-zinc-200 dark:border-zinc-700 align-top">
 
                 <!-- Order ID -->
-                <div class="text-primary-500 font-semibold text-sm mb-1">
+                <div class="text-[#00b8da] font-semibold text-sm mb-1">
                   {{ order.id }}
                 </div>
 
                 <!-- Date -->
-                <div class="text-xs text-zinc-400 dark:text-zinc-500 mb-2">
+                <div class="text-sm text-zinc-400 dark:text-zinc-300 mb-2">
                   {{ order.date }}
                 </div>
 
                 <!-- Delivery Type Badge -->
                 <div class="flex flex-col gap-1">
-    <span
-        class="w-fit px-2.5 py-0.5 text-[11px] font-medium rounded-md
-      bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-      {{ order.deliveryType }}
-    </span>
-
-                  <!-- Source Badge -->
-                  <span
-                      class="w-fit px-2.5 py-0.5 text-[11px] font-medium rounded-md
-      border"
-                      :class="sourceClass[order.source] ??
-        'bg-orange-500/10 text-orange-400 border-orange-500/20'">
-      {{ order.source }}
-    </span>
+                  <span class="w-fit px-2.5 py-0.5 text-[13px] font-medium rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                    {{ order.source }}
+                  </span>
+                  <span class="w-fit px-2.5 py-0.5 text-[13px] font-medium rounded-md border bg-orange-500/10 text-orange-300 border-orange-500/20">
+                    {{ order.deliveryType }}
+                  </span>
                 </div>
 
               </td>
 
               <!-- Customer -->
-              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top text-[14px]">
                 <div class="font-semibold text-zinc-900 dark:text-zinc-100 mb-0.5">{{ order.customerName
                   }}</div>
-                <div class="text-[11px] text-zinc-500 dark:text-zinc-400 mb-0.5">{{ order.customerPhone
+                <div class="text-zinc-500 dark:text-zinc-100 mb-0.5">{{ order.customerPhone
                   }}</div>
-                <div class="text-[11px] text-zinc-400 dark:text-zinc-500">{{ order.customerAddress }}
+                <div class="text-zinc-400 dark:text-zinc-100">{{ order.customerAddress }}
                 </div>
               </td>
               <!-- Products -->
               <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
                 <div v-for="p in order.products" :key="p.name" class="flex items-center gap-1 mb-1 last:mb-0">
-                  <Icon name="lucide:package" class="w-3 h-3 text-zinc-300 dark:text-zinc-600 shrink-0" />
-                  <span class="text-zinc-700 dark:text-zinc-300">{{ p.name }}</span>
-                  <span class="text-[11px] font-bold text-primary-400 ml-0.5">×{{ p.qty }}</span>
+                  <span class="text-zinc-700 dark:text-[#0a91b2] text-[15px]">{{ p.name }}</span>
+                  <span class="text-[14px] font-bold text-primary-400 ml-0.5">×{{ p.qty }}</span>
                 </div>
               </td>
               <!-- Financials -->
               <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
-                <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[12px]">
+                <div class="grid grid-cols-2 gap-y-0.5 text-[12px]">
                   <span class="text-zinc-400">Subtotal</span>
                   <span class="text-zinc-700 dark:text-zinc-300 font-medium">৳{{
                     order.subtotal.toLocaleString() }}</span>
@@ -429,9 +420,9 @@ function exportOrders() {
                     :class="due(order) > 0 ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'">৳{{
                       due(order).toLocaleString() }}</span>
                   <span
-                    class="text-zinc-500 font-semibold pt-1 border-t border-primary-100 dark:border-primary-900/20">Grand</span>
+                    class="text-zinc-500 font-semibold pt-1">Grand</span>
                   <span
-                    class="font-bold text-primary-500 pt-1 border-t border-primary-100 dark:border-primary-900/20">৳{{
+                    class="font-bold text-primary-500 pt-1">৳{{
                       grandTotal(order).toLocaleString() }}</span>
                 </div>
               </td>
