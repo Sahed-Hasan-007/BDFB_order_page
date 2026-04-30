@@ -4,58 +4,58 @@ import Icon from "../components/Icon.vue";
 import CommonTutorialModal from "../components/CommonTutorialModal.vue";
 
 type OrderStatus =
-    | "Pending"
-    | "Followup"
-    | "Confirmed"
-    | "Canceled"
-    | "Ready To Ship"
-    | "Shipped"
-    | "Hold-by-courier"
-    | "Delivered"
-    | "Payment-received"
-    | "Returned"
-    | "Unresolved";
+  | "Pending"
+  | "Followup"
+  | "Confirmed"
+  | "Canceled"
+  | "Ready To Ship"
+  | "Shipped"
+  | "Hold-by-courier"
+  | "Delivered"
+  | "Payment-received"
+  | "Returned"
+  | "Unresolved";
 
 const statuses: (OrderStatus | "Pending")[] = [
-  "Pending","Followup","Confirmed","Canceled","Ready To Ship",
-  "Shipped","Hold-by-courier","Delivered","Payment-received","Returned","Unresolved","All"
+  "Pending", "Followup", "Confirmed", "Canceled", "Ready To Ship",
+  "Shipped", "Hold-by-courier", "Delivered", "Payment-received", "Returned", "Unresolved", "All"
 ];
 
 const periodOptions = [
-  { label: "Today",      value: "today"      },
-  { label: "Yesterday",  value: "yesterday"  },
-  { label: "This week",  value: "this_week"  },
+  { label: "Today", value: "today" },
+  { label: "Yesterday", value: "yesterday" },
+  { label: "This week", value: "this_week" },
   { label: "This month", value: "this_month" },
-  { label: "This year",  value: "this_year"  },
+  { label: "This year", value: "this_year" },
 ];
 
 const tutorialOpen = ref(false)
-const period       = ref("today");
+const period = ref("today");
 const activeStatus = ref<OrderStatus | "Pending">("Pending");
-const search       = ref("");
-const page         = ref(1);
-const pageSize     = ref(10);
+const search = ref("");
+const page = ref(1);
+const pageSize = ref(10);
 
 const statusClass: Record<OrderStatus, string> = {
-  "Pending":          "bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-400",
-  "Followup":         "bg-blue-50 text-blue-800 dark:bg-blue-500/10 dark:text-blue-400",
-  "Confirmed":        "bg-green-50 text-green-800 dark:bg-green-500/10 dark:text-green-400",
-  "Canceled":         "bg-red-50 text-red-800 dark:bg-red-500/10 dark:text-red-400",
-  "Ready To Ship":    "bg-indigo-50 text-indigo-800 dark:bg-indigo-500/10 dark:text-indigo-400",
-  "Shipped":          "bg-violet-50 text-violet-800 dark:bg-violet-500/10 dark:text-violet-400",
-  "Hold-by-courier":  "bg-primary-50 text-primary-800 dark:bg-primary-500/10 dark:text-primary-400",
-  "Delivered":        "bg-emerald-50 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-400",
+  "Pending": "bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-400",
+  "Followup": "bg-blue-50 text-blue-800 dark:bg-blue-500/10 dark:text-blue-400",
+  "Confirmed": "bg-green-50 text-green-800 dark:bg-green-500/10 dark:text-green-400",
+  "Canceled": "bg-red-50 text-red-800 dark:bg-red-500/10 dark:text-red-400",
+  "Ready To Ship": "bg-indigo-50 text-indigo-800 dark:bg-indigo-500/10 dark:text-indigo-400",
+  "Shipped": "bg-violet-50 text-violet-800 dark:bg-violet-500/10 dark:text-violet-400",
+  "Hold-by-courier": "bg-primary-50 text-primary-800 dark:bg-primary-500/10 dark:text-primary-400",
+  "Delivered": "bg-emerald-50 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-400",
   "Payment-received": "bg-teal-50 text-teal-800 dark:bg-teal-500/10 dark:text-teal-400",
-  "Returned":         "bg-yellow-50 text-yellow-800 dark:bg-yellow-500/10 dark:text-yellow-400",
-  "Unresolved":       "bg-rose-50 text-rose-800 dark:bg-rose-500/10 dark:text-rose-400",
+  "Returned": "bg-yellow-50 text-yellow-800 dark:bg-yellow-500/10 dark:text-yellow-400",
+  "Unresolved": "bg-rose-50 text-rose-800 dark:bg-rose-500/10 dark:text-rose-400",
 };
 
 const sourceClass: Record<string, string> = {
   "Facebook": "bg-blue-50 text-blue-800 dark:bg-blue-500/10 dark:text-blue-400",
-  "Website":  "bg-green-50 text-green-800 dark:bg-green-500/10 dark:text-green-400",
+  "Website": "bg-green-50 text-green-800 dark:bg-green-500/10 dark:text-green-400",
   "WhatsApp": "bg-emerald-50 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-400",
-  "Walk-in":  "bg-purple-50 text-purple-800 dark:bg-purple-500/10 dark:text-purple-400",
-  "Phone":    "bg-primary-50 text-primary-800 dark:bg-primary-500/10 dark:text-primary-400",
+  "Walk-in": "bg-purple-50 text-purple-800 dark:bg-purple-500/10 dark:text-purple-400",
+  "Phone": "bg-primary-50 text-primary-800 dark:bg-primary-500/10 dark:text-primary-400",
 };
 
 interface Order {
@@ -200,21 +200,21 @@ const orders = ref<Order[]>([
 ]);
 
 const filtered = computed(() =>
-    orders.value.filter((o) => {
-      const sm = activeStatus.value === "Pending" || o.status === activeStatus.value;
-      const q  = search.value.toLowerCase();
-      const qm = !q || o.id.toLowerCase().includes(q) || o.products.some((p) => p.name.toLowerCase().includes(q));
-      return sm && qm;
-    })
+  orders.value.filter((o) => {
+    const sm = activeStatus.value === "Pending" || o.status === activeStatus.value;
+    const q = search.value.toLowerCase();
+    const qm = !q || o.id.toLowerCase().includes(q) || o.products.some((p) => p.name.toLowerCase().includes(q));
+    return sm && qm;
+  })
 );
 
 const totalPages = computed(() => Math.max(1, Math.ceil(filtered.value.length / pageSize.value)));
-const paginated  = computed(() => filtered.value.slice((page.value - 1) * pageSize.value, page.value * pageSize.value));
+const paginated = computed(() => filtered.value.slice((page.value - 1) * pageSize.value, page.value * pageSize.value));
 
 watch([activeStatus, search, pageSize], () => { page.value = 1; });
 
 const grandTotal = (o: Order) => o.subtotal + o.deliveryFee - o.discount;
-const due        = (o: Order) => Math.max(0, grandTotal(o) - o.paid);
+const due = (o: Order) => Math.max(0, grandTotal(o) - o.paid);
 
 function exportOrders() {
   const blob = new Blob([JSON.stringify(orders.value, null, 2)], { type: "application/json" });
@@ -232,7 +232,8 @@ function exportOrders() {
     <div class="flex items-start justify-between flex-wrap gap-4 mb-6">
       <div>
         <nav class="flex items-center gap-1 mb-1">
-          <span class="text-xs font-medium text-zinc-500 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-200">Orders</span>
+          <span
+            class="text-xs font-medium text-zinc-500 cursor-pointer hover:text-zinc-900 dark:hover:text-zinc-200">Orders</span>
           <Icon name="lucide:chevron-right" class="w-3.5 h-3.5 text-zinc-400" />
           <span class="text-xs font-medium text-zinc-400">List</span>
         </nav>
@@ -240,41 +241,32 @@ function exportOrders() {
       </div>
       <div class="flex items-center gap-2 flex-wrap">
         <button
-            class="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-primary-500 bg-white dark:bg-[#1a1a1c] dark:hover:bg-[#2a2a2c] cursor-pointer"
-        >
+          class="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-primary-500 bg-white dark:bg-[#1a1a1c] dark:hover:bg-[#2a2a2c] cursor-pointer">
           Show Duplicate Orders
         </button>
         <button
-            class="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-primary-500 bg-white dark:bg-[#1a1a1c] dark:hover:bg-[#2a2a2c] cursor-pointer"
-        >
+          class="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-primary-500 bg-white dark:bg-[#1a1a1c] dark:hover:bg-[#2a2a2c] cursor-pointer">
           Me Mode
         </button>
         <button
-            class="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-primary-500 bg-white dark:bg-[#1a1a1c] dark:hover:bg-[#2a2a2c] cursor-pointer"
-        >
+          class="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-primary-500 bg-white dark:bg-[#1a1a1c] dark:hover:bg-[#2a2a2c] cursor-pointer">
           Unassigned Orders
         </button>
         <button
-            class="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-primary-500 bg-white dark:bg-[#1a1a1c] dark:hover:bg-[#2a2a2c] cursor-pointer"
-        >
+          class="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-primary-500 bg-white dark:bg-[#1a1a1c] dark:hover:bg-[#2a2a2c] cursor-pointer">
           Sort By Update
         </button>
-        <button
-            @click="exportOrders"
-            class="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-primary-500 bg-white dark:bg-[#c65f00] dark:hover:bg-[#8d4705] cursor-pointer"
-        >
+        <button @click="exportOrders"
+          class="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-primary-500 bg-white dark:bg-[#c65f00] dark:hover:bg-[#8d4705] cursor-pointer">
           <Icon name="lucide:download" class="w-4 h-4 shrink-0 text-primary-500" />
           Export
         </button>
         <button
-            class="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-primary-500 bg-white dark:bg-[#c65f00] dark:hover:bg-[#8d4705] cursor-pointer"
-        >
+          class="flex items-center gap-2 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-primary-500 bg-white dark:bg-[#c65f00] dark:hover:bg-[#8d4705] cursor-pointer">
           New order
         </button>
-        <button
-            @click="tutorialOpen = true"
-            class="flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:bg-[#009689] dark:hover:bg-[#156b64] dark:text-zinc-200 dark:hover:border-primary-500 cursor-pointer"
-        >
+        <button @click="tutorialOpen = true"
+          class="flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm font-semibold text-zinc-700 transition-all hover:border-primary-400 dark:border-zinc-700 dark:bg-[#009689] dark:hover:bg-[#156b64] dark:text-zinc-200 dark:hover:border-primary-500 cursor-pointer">
           <Icon name="lucide:play-circle" class="w-4 h-4 shrink-0 text-primary-500" />
           Tutorial
         </button>
@@ -282,235 +274,218 @@ function exportOrders() {
     </div>
 
     <!-- Tutorial Modal -->
-    <CommonTutorialModal
-        v-if="tutorialOpen"
-        video-url="https://youtu.be/GNM5ViJEEK0"
-        title="Orders — Tutorial"
-        @close="tutorialOpen = false"
-    />
+    <CommonTutorialModal v-if="tutorialOpen" video-url="https://youtu.be/GNM5ViJEEK0" title="Orders — Tutorial"
+      @close="tutorialOpen = false" />
 
     <!-- Period selector -->
-    <div class="flex items-center mb-5 flex-wrap p-5 bg-white dark:bg-[#18181c] border border-zinc-200 dark:border-zinc-700 rounded-xl">
-      <div class="text-sm h-9 text-zinc-700 dark:text-zinc-200 rounded-l-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-[#27272a] flex items-center px-2">Filter by</div>  
+    <div
+      class="flex items-center mb-5 flex-wrap p-5 bg-white dark:bg-[#18181c] border border-zinc-200 dark:border-zinc-700 rounded-xl">
+      <div
+        class="text-sm h-9 text-zinc-700 dark:text-zinc-200 rounded-l-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-[#27272a] flex items-center px-2">
+        Filter by</div>
       <div class="relative">
-        <select
-            v-model="period"
-            class="pl-2 pr-4 h-9 w-[400px] rounded-r-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-[#27272a] text-sm font-semibold text-zinc-700 dark:text-zinc-200 outline-none focus:border-primary-400 cursor-pointer"
-        >
+        <select v-model="period"
+          class="pl-2 pr-4 h-9 w-[400px] rounded-r-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-[#27272a] text-sm font-semibold text-zinc-700 dark:text-zinc-200 outline-none focus:border-primary-400 cursor-pointer">
           <option v-for="opt in periodOptions" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
         </select>
       </div>
-      <span class="text-xs font-medium text-zinc-400 dark:text-zinc-500 ml-3">{{ filtered.length }} order{{ filtered.length !== 1 ? 's' : '' }} found</span>
+      <span class="text-xs font-medium text-zinc-400 dark:text-zinc-500 ml-3">{{ filtered.length }} order{{
+        filtered.length !== 1 ? 's' : '' }} found</span>
     </div>
 
     <!-- Status tabs -->
-    <div class="bg-white w-fit mx-auto flex items-center justify-center dark:bg-[#18181c] mb-5 rounded-2xl border border-zinc-200 dark:border-zinc-700 overflow-hidden shadow-sm">
+    <div
+      class="bg-white w-fit mx-auto flex items-center justify-center dark:bg-[#18181c] mb-5 rounded-2xl border border-zinc-200 dark:border-zinc-700 overflow-hidden shadow-sm">
       <div class="flex items-center flex-wrap gap-1.5 px-4 py-3">
-        <button
-            v-for="s in statuses"
-            :key="s"
-            @click="activeStatus = s; page = 1"
-            :class="[
-            'px-3 py-1.5 rounded-lg text-[13px] font-semibold border transition-all whitespace-nowrap',
-            activeStatus === s
-              ? 'bg-primary-50 text-primary-700 border-primary-300 dark:bg-primary-500/10 dark:text-[#de883e] dark:border-primary-500/30'
-              : 'text-zinc-500 border-transparent hover:bg-zinc-100 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-200'
-          ]"
-        >
+        <button v-for="s in statuses" :key="s" @click="activeStatus = s; page = 1" :class="[
+          'px-3 py-1.5 rounded-lg text-[13px] font-semibold transition-all whitespace-nowrap',
+          activeStatus === s
+            ? 'bg-primary-50 text-primary-700 dark:bg-orange-200/10 dark:text-[#de883e]'
+            : 'text-zinc-500 border-transparent hover:bg-zinc-100 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-200'
+        ]">
           {{ s }}
-          <span
-              v-if="s !== 'Pending'"
-              class="ml-1 text-[10px] font-bold opacity-60"
-          >
-            {{ orders.filter(o => o.status === s).length }}
-          </span>
         </button>
       </div>
     </div>
 
     <!-- Main card -->
-    <div class="bg-white dark:bg-zinc-900 rounded-2xl border border-primary-100 dark:border-primary-900/20 overflow-hidden shadow-sm">
+    <div
+      class="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-700 overflow-hidden shadow-sm">
 
       <!-- Toolbar: search -->
-      <div class="flex items-center justify-between px-4 py-3 border-b border-primary-100 dark:border-primary-900/15 gap-3 flex-wrap">
+      <div
+        class="flex items-center justify-end px-4 py-3 border-b border-zinc-200 dark:border-zinc-700  gap-3 flex-wrap">
+        <div>
+          <div class="relative flex items-center">
+            <Icon name="lucide:search" class="absolute left-2.5 w-4 h-4 text-zinc-400 pointer-events-none" />
+            <input v-model="search" type="search" placeholder="Search"
+              class="h-9 pl-8 pr-3 w-52 border border-zinc-200 dark:border-zinc-700 rounded-lg text-[13px] text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 outline-none placeholder-zinc-400 dark:placeholder-zinc-600 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/10 transition-all" />
+          </div>
+
+        </div>
         <div class="relative flex items-center">
           <Icon name="lucide:search" class="absolute left-2.5 w-4 h-4 text-zinc-400 pointer-events-none" />
-          <input
-              v-model="search"
-              type="search"
-              placeholder="Search by order no. or product name…"
-              class="h-9 pl-8 pr-3 w-72 border border-zinc-200 dark:border-zinc-700 rounded-[0.625rem] text-[13px] text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 outline-none placeholder-zinc-400 dark:placeholder-zinc-600 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/10 transition-all"
-          />
+          <input v-model="search" type="search" placeholder="Search"
+            class="h-9 pl-8 pr-3 w-52 border border-zinc-200 dark:border-zinc-700 rounded-lg text-[13px] text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 outline-none placeholder-zinc-400 dark:placeholder-zinc-600 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/10 transition-all" />
         </div>
       </div>
 
       <!-- Table -->
       <div class="overflow-x-auto">
         <table class="w-full border-collapse text-[12.5px]" style="min-width:1100px">
-          <thead>
-          <tr>
-            <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-left text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-44">Order info</th>
-            <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-left text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-44">Customer</th>
-            <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-left text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-52">Products</th>
-            <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-left text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-48">Financials</th>
-            <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-left text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-40">Courier</th>
-            <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-left text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-36">Status</th>
-            <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-center text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-28">Actions</th>
-          </tr>
-          </thead>
+          <!-- <thead>
+            <tr>
+                <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-left text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-44">Order info</th>
+                <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-left text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-44">Customer</th>
+                <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-left text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-52">Products</th>
+                <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-left text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-48">Financials</th>
+                <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-left text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-40">Courier</th>
+                <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-left text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-36">Status</th>
+                <th class="bg-primary-50 dark:bg-primary-950/10 px-3.5 py-2.5 text-center text-[11px] font-bold text-zinc-400 uppercase tracking-widest border-b border-primary-200 dark:border-primary-900/20 whitespace-nowrap w-28">Actions</th>
+            </tr>
+          </thead> -->
           <tbody>
 
-          <!-- Empty -->
-          <tr v-if="paginated.length === 0">
-            <td colspan="7" class="text-center p-12">
-              <div class="flex flex-col items-center gap-2 text-zinc-400">
-                <Icon name="lucide:inbox" class="w-9 h-9" />
-                <p class="text-sm m-0">No orders found</p>
-              </div>
-            </td>
-          </tr>
+            <!-- Empty -->
+            <tr v-if="paginated.length === 0">
+              <td colspan="7" class="text-center p-12">
+                <div class="flex flex-col items-center gap-2 text-zinc-400">
+                  <Icon name="lucide:inbox" class="w-9 h-9" />
+                  <p class="text-sm m-0">No orders found</p>
+                </div>
+              </td>
+            </tr>
 
-          <!-- Rows -->
-          <tr
-              v-for="order in paginated"
-              :key="order.id"
-              class="hover:bg-primary-50/50 dark:hover:bg-primary-950/5 transition-colors"
-          >
-            <!-- Order info -->
-            <td class="px-3.5 py-3 border-b border-primary-100 dark:border-primary-900/10 align-top">
-              <div class="font-bold text-primary-500 mb-1">{{ order.id }}</div>
-              <div class="text-[11px] text-zinc-400 dark:text-zinc-500 mb-1.5">{{ order.date }}</div>
-              <span class="inline-block px-2 py-0.5 rounded-md text-[11px] font-semibold bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 mb-1">
+            <!-- Rows -->
+            <tr v-for="order in paginated" :key="order.id"
+              class="hover:bg-primary-50/50 dark:hover:bg-primary-950/5 transition-colors">
+              <!-- Order info -->
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
+                <div class="font-bold text-primary-500 mb-1">{{ order.id }}</div>
+                <div class="text-[11px] text-zinc-400 dark:text-zinc-500 mb-1.5">{{ order.date }}</div>
+                <span
+                  class="inline-block px-2 py-0.5 rounded-md text-[11px] font-semibold bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 mb-1">
                   {{ order.deliveryType }}
                 </span>
-              <br />
-              <span
-                  class="inline-block px-2 py-0.5 rounded-md text-[11px] font-semibold mt-0.5"
-                  :class="sourceClass[order.source] ?? 'bg-zinc-100 text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300'"
-              >
+                <br />
+                <span class="inline-block px-2 py-0.5 rounded-md text-[11px] font-semibold mt-0.5"
+                  :class="sourceClass[order.source] ?? 'bg-zinc-100 text-zinc-600 dark:bg-zinc-700 dark:text-zinc-300'">
                   {{ order.source }}
                 </span>
-            </td>
+              </td>
 
-            <!-- Customer -->
-            <td class="px-3.5 py-3 border-b border-primary-100 dark:border-primary-900/10 align-top">
-              <div class="font-semibold text-zinc-900 dark:text-zinc-100 mb-0.5">{{ order.customerName }}</div>
-              <div class="text-[11px] text-zinc-500 dark:text-zinc-400 mb-0.5">{{ order.customerPhone }}</div>
-              <div class="text-[11px] text-zinc-400 dark:text-zinc-500">{{ order.customerAddress }}</div>
-            </td>
-            <!-- Products -->
-            <td class="px-3.5 py-3 border-b border-primary-100 dark:border-primary-900/10 align-top">
-              <div
-                  v-for="p in order.products"
-                  :key="p.name"
-                  class="flex items-center gap-1 mb-1 last:mb-0"
-              >
-                <Icon name="lucide:package" class="w-3 h-3 text-zinc-300 dark:text-zinc-600 shrink-0" />
-                <span class="text-zinc-700 dark:text-zinc-300">{{ p.name }}</span>
-                <span class="text-[11px] font-bold text-primary-400 ml-0.5">×{{ p.qty }}</span>
-              </div>
-            </td>
-            <!-- Financials -->
-            <td class="px-3.5 py-3 border-b border-primary-100 dark:border-primary-900/10 align-top">
-              <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[12px]">
-                <span class="text-zinc-400">Subtotal</span>
-                <span class="text-zinc-700 dark:text-zinc-300 font-medium">৳{{ order.subtotal.toLocaleString() }}</span>
-                <span class="text-zinc-400">Delivery</span>
-                <span class="text-zinc-600 dark:text-zinc-400">৳{{ order.deliveryFee }}</span>
-                <span class="text-zinc-400">Discount</span>
-                <span class="text-zinc-600 dark:text-zinc-400">-৳{{ order.discount }}</span>
-                <span class="text-zinc-400">Paid</span>
-                <span class="font-semibold text-green-600 dark:text-green-400">৳{{ order.paid.toLocaleString() }}</span>
-                <span class="text-zinc-400">Due</span>
-                <span class="font-semibold" :class="due(order) > 0 ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'">৳{{ due(order).toLocaleString() }}</span>
-                <span class="text-zinc-500 font-semibold pt-1 border-t border-primary-100 dark:border-primary-900/20">Grand</span>
-                <span class="font-bold text-primary-500 pt-1 border-t border-primary-100 dark:border-primary-900/20">৳{{ grandTotal(order).toLocaleString() }}</span>
-              </div>
-            </td>
+              <!-- Customer -->
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
+                <div class="font-semibold text-zinc-900 dark:text-zinc-100 mb-0.5">{{ order.customerName
+                }}</div>
+                <div class="text-[11px] text-zinc-500 dark:text-zinc-400 mb-0.5">{{ order.customerPhone
+                }}</div>
+                <div class="text-[11px] text-zinc-400 dark:text-zinc-500">{{ order.customerAddress }}
+                </div>
+              </td>
+              <!-- Products -->
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
+                <div v-for="p in order.products" :key="p.name" class="flex items-center gap-1 mb-1 last:mb-0">
+                  <Icon name="lucide:package" class="w-3 h-3 text-zinc-300 dark:text-zinc-600 shrink-0" />
+                  <span class="text-zinc-700 dark:text-zinc-300">{{ p.name }}</span>
+                  <span class="text-[11px] font-bold text-primary-400 ml-0.5">×{{ p.qty }}</span>
+                </div>
+              </td>
+              <!-- Financials -->
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
+                <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[12px]">
+                  <span class="text-zinc-400">Subtotal</span>
+                  <span class="text-zinc-700 dark:text-zinc-300 font-medium">৳{{
+                    order.subtotal.toLocaleString() }}</span>
+                  <span class="text-zinc-400">Delivery</span>
+                  <span class="text-zinc-600 dark:text-zinc-400">৳{{ order.deliveryFee }}</span>
+                  <span class="text-zinc-400">Discount</span>
+                  <span class="text-zinc-600 dark:text-zinc-400">-৳{{ order.discount }}</span>
+                  <span class="text-zinc-400">Paid</span>
+                  <span class="font-semibold text-green-600 dark:text-green-400">৳{{
+                    order.paid.toLocaleString() }}</span>
+                  <span class="text-zinc-400">Due</span>
+                  <span class="font-semibold"
+                    :class="due(order) > 0 ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'">৳{{
+                      due(order).toLocaleString() }}</span>
+                  <span
+                    class="text-zinc-500 font-semibold pt-1 border-t border-primary-100 dark:border-primary-900/20">Grand</span>
+                  <span
+                    class="font-bold text-primary-500 pt-1 border-t border-primary-100 dark:border-primary-900/20">৳{{
+                      grandTotal(order).toLocaleString() }}</span>
+                </div>
+              </td>
 
-            <!-- Courier -->
-            <td class="px-3.5 py-3 border-b border-primary-100 dark:border-primary-900/10 align-top">
-              <div class="font-semibold text-zinc-800 dark:text-zinc-200 mb-0.5">{{ order.courierName }}</div>
-              <div class="text-[11px] font-mono text-zinc-400 dark:text-zinc-500">{{ order.courierTracking }}</div>
-            </td>
+              <!-- Courier -->
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
+                <div class="font-semibold text-zinc-800 dark:text-zinc-200 mb-0.5">{{ order.courierName
+                }}</div>
+                <div class="text-[11px] font-mono text-zinc-400 dark:text-zinc-500">{{
+                  order.courierTracking }}</div>
+              </td>
 
-            <!-- Status -->
-            <td class="px-3.5 py-3 border-b border-primary-100 dark:border-primary-900/10 align-top">
-                <span
-                    class="inline-block px-2.5 py-1 rounded-full text-[11px] font-bold"
-                    :class="statusClass[order.status]"
-                >
+              <!-- Status -->
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
+                <span class="inline-block px-2.5 py-1 rounded-full text-[11px] font-bold"
+                  :class="statusClass[order.status]">
                   {{ order.status }}
                 </span>
-            </td>
+              </td>
 
-            <!-- Actions -->
-            <td class="px-3.5 py-3 border-b border-primary-100 dark:border-primary-900/10 align-top">
-              <div class="flex items-center justify-center gap-1.5 flex-wrap">
-                <!-- Print -->
-                <button
-                    title="Print"
-                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-400 cursor-pointer hover:bg-zinc-50 hover:text-zinc-700 dark:hover:bg-zinc-700 dark:hover:text-zinc-200 transition-all"
-                >
-                  <Icon name="lucide:printer" class="w-3.5 h-3.5" />
-                </button>
-                <!-- Copy -->
-                <button
-                    title="Copy"
-                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-400 cursor-pointer hover:bg-zinc-50 hover:text-zinc-700 dark:hover:bg-zinc-700 dark:hover:text-zinc-200 transition-all"
-                >
-                  <Icon name="lucide:copy" class="w-3.5 h-3.5" />
-                </button>
-                <!-- View -->
-                <button
-                    title="View"
-                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-400 cursor-pointer hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 dark:hover:bg-blue-950/20 dark:hover:border-blue-900/40 dark:hover:text-blue-400 transition-all"
-                >
-                  <Icon name="lucide:eye" class="w-3.5 h-3.5" />
-                </button>
-                <!-- Edit -->
-                <button
-                    title="Edit"
-                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-400 cursor-pointer hover:bg-green-50 hover:border-green-200 hover:text-green-600 dark:hover:bg-green-950/20 dark:hover:border-green-900/40 dark:hover:text-green-400 transition-all"
-                >
-                  <Icon name="lucide:pencil" class="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </td>
-          </tr>
+              <!-- Actions -->
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
+                <div class="flex items-center justify-center gap-1.5 flex-wrap">
+                  <!-- Print -->
+                  <button title="Print"
+                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-400 cursor-pointer hover:bg-zinc-50 hover:text-zinc-700 dark:hover:bg-zinc-700 dark:hover:text-zinc-200 transition-all">
+                    <Icon name="lucide:printer" class="w-3.5 h-3.5" />
+                  </button>
+                  <!-- Copy -->
+                  <button title="Copy"
+                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-400 cursor-pointer hover:bg-zinc-50 hover:text-zinc-700 dark:hover:bg-zinc-700 dark:hover:text-zinc-200 transition-all">
+                    <Icon name="lucide:copy" class="w-3.5 h-3.5" />
+                  </button>
+                  <!-- View -->
+                  <button title="View"
+                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-400 cursor-pointer hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 dark:hover:bg-blue-950/20 dark:hover:border-blue-900/40 dark:hover:text-blue-400 transition-all">
+                    <Icon name="lucide:eye" class="w-3.5 h-3.5" />
+                  </button>
+                  <!-- Edit -->
+                  <button title="Edit"
+                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-400 cursor-pointer hover:bg-green-50 hover:border-green-200 hover:text-green-600 dark:hover:bg-green-950/20 dark:hover:border-green-900/40 dark:hover:text-green-400 transition-all">
+                    <Icon name="lucide:pencil" class="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
 
       <!-- Pagination -->
-      <div class="flex flex-col md:flex-row items-center justify-between px-4 py-3 border-t border-primary-100 dark:border-primary-900/15 gap-2">
+      <div
+        class="flex flex-col md:flex-row items-center justify-between px-4 py-3 border-t border-primary-100 dark:border-primary-900/15 gap-2">
         <span class="text-xs font-medium text-zinc-400 dark:text-zinc-500 tracking-wide">
-          Showing {{ paginated.length ? (page - 1) * pageSize + 1 : 0 }}–{{ Math.min(page * pageSize, filtered.length) }} of {{ filtered.length }} results
+          Showing {{ paginated.length ? (page - 1) * pageSize + 1 : 0 }}–{{ Math.min(page * pageSize,
+            filtered.length) }} of {{ filtered.length }} results
         </span>
         <div class="flex items-center gap-4">
           <div class="flex items-center gap-2">
             <label class="text-xs font-medium text-zinc-500 dark:text-zinc-400">Rows per page:</label>
-            <select
-                v-model.number="pageSize"
-                class="border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-xs font-semibold text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 outline-none focus:border-primary-400"
-            >
+            <select v-model.number="pageSize"
+              class="border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-xs font-semibold text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 outline-none focus:border-primary-400">
               <option v-for="s in [10, 25, 50]" :key="s" :value="s">{{ s }}</option>
             </select>
           </div>
           <div class="flex items-center gap-1.5">
-            <button
-                :disabled="page <= 1"
-                @click="page--"
-                class="px-2.5 py-1.5 border border-zinc-200 dark:border-zinc-700 rounded-lg text-xs font-semibold bg-white dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-zinc-400 disabled:opacity-35 disabled:cursor-not-allowed transition-all"
-            >
+            <button :disabled="page <= 1" @click="page--"
+              class="px-2.5 py-1.5 border border-zinc-200 dark:border-zinc-700 rounded-lg text-xs font-semibold bg-white dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-zinc-400 disabled:opacity-35 disabled:cursor-not-allowed transition-all">
               Previous
             </button>
-            <span class="text-[13px] font-bold text-zinc-900 dark:text-zinc-100 px-1">{{ page }} / {{ totalPages }}</span>
-            <button
-                :disabled="page >= totalPages"
-                @click="page++"
-                class="px-2.5 py-1.5 border border-zinc-200 dark:border-zinc-700 rounded-lg text-xs font-semibold bg-white dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-zinc-400 disabled:opacity-35 disabled:cursor-not-allowed transition-all"
-            >
+            <span class="text-[13px] font-bold text-zinc-900 dark:text-zinc-100 px-1">{{ page }} / {{
+              totalPages }}</span>
+            <button :disabled="page >= totalPages" @click="page++"
+              class="px-2.5 py-1.5 border border-zinc-200 dark:border-zinc-700 rounded-lg text-xs font-semibold bg-white dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-zinc-400 disabled:opacity-35 disabled:cursor-not-allowed transition-all">
               Next
             </button>
           </div>
