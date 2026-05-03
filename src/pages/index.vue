@@ -520,10 +520,10 @@ function exportOrders() {
         </span>
 
         <!-- Middle: Per page -->
-        <div class="flex items-center gap-2">
-          <label class="text-xs font-medium text-zinc-500 dark:text-zinc-400">Per page</label>
+        <div class="flex items-center rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 overflow-hidden">
+          <label class="px-3 py-1.5 text-[13px] font-medium text-zinc-500 dark:text-zinc-400 border-r border-zinc-200 dark:border-zinc-700">Per page</label>
           <select v-model.number="pageSize"
-            class="border border-zinc-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-xs font-semibold text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 outline-none focus:border-primary-400 cursor-pointer">
+            class="px-2 py-1.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 outline-none cursor-pointer">
             <option v-for="s in [10, 25, 50]" :key="s" :value="s">{{ s }}</option>
           </select>
         </div>
