@@ -35,6 +35,7 @@ const activeStatus = ref<OrderStatus | "All">("Pending");
 const search = ref("");
 const page = ref(1);
 const pageSize = ref(10);
+const filterOpen = ref(false);
 
 const statusClass: Record<OrderStatus, string> = {
   "Pending": "bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-400",
@@ -200,6 +201,24 @@ const orders = ref<Order[]>([
   },
 ]);
 
+const variantOptions = ['Red', 'Green', 'Blue'];
+const customerTagOptions = ['New', 'Regular', 'VIP', 'Fraud'];
+const callStatusOptions = ['Unreached', 'Rejected', 'Not Responded', 'Partially Responded', 'Fully Responded', 'Forwarded'];
+const sourceOptions = ['Facebook', 'Website', 'WhatsApp', 'Walk-in', 'Phone'];
+
+const fAssignee = ref('');
+const fStatus = ref('');
+const fProduct = ref('');
+const fVariant = ref('');
+const fSource = ref('');
+const fCustomerTag = ref('');
+const fCourier = ref('');
+const fCallStatus = ref('');
+
+const assigneeOptions = computed(() => [...new Set(orders.value.map(o => o.assignee))].sort());
+const productOptions = computed(() => [...new Set(orders.value.flatMap(o => o.products.map(p => p.name)))].sort());
+const courierOptions = computed(() => [...new Set(orders.value.map(o => o.courierName))].sort());
+
 const filtered = computed(() =>
   orders.value.filter((o) => {
     const sm = activeStatus.value === "All" || o.status === activeStatus.value;
@@ -229,6 +248,17 @@ watch([activeStatus, search, pageSize], () => { page.value = 1; });
 
 const grandTotal = (o: Order) => o.subtotal + o.deliveryFee - o.discount;
 const due = (o: Order) => Math.max(0, grandTotal(o) - o.paid);
+
+function resetFilters() {
+  fAssignee.value = '';
+  fStatus.value = '';
+  fProduct.value = '';
+  fVariant.value = '';
+  fSource.value = '';
+  fCustomerTag.value = '';
+  fCourier.value = '';
+  fCallStatus.value = '';
+}
 
 function exportOrders() {
   const blob = new Blob([JSON.stringify(orders.value, null, 2)], { type: "application/json" });
@@ -336,13 +366,106 @@ function exportOrders() {
               class="h-9 pl-8 pr-3 w-52 border border-zinc-200 dark:border-zinc-700 rounded-lg text-[13px] text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 outline-none placeholder-zinc-400 dark:placeholder-zinc-600 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/10 transition-all" />
           </div>
           <!-- Filter -->
-          <div
-            class="relative flex items-center justify-center w-9 h-9 rounded-lg bg-white dark:bg-zinc-900 cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors">
-            <Icon name="material-symbols:filter-alt" class="w-6 h-6 text-zinc-600 dark:text-zinc-500" />
-            <span
-              class="absolute -top-1 -right-1 flex items-center justify-center w-4 h-4 text-[10px] font-bold text-[#f9c401] bg-yellow-400/20 rounded-full ring-2 ring-white dark:ring-zinc-900 border border-[#77610e]">
-              2
-            </span>
+          <div class="relative">
+            <button @click="filterOpen = !filterOpen"
+              class="flex items-center justify-center w-9 h-9 rounded-lg bg-white dark:bg-zinc-900 cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors">
+              <Icon name="material-symbols:filter-alt" class="w-6 h-6 text-zinc-600 dark:text-zinc-500" />
+            </button>
+
+            <!-- Filter Dropdown Panel -->
+            <div v-if="filterOpen"
+              class="absolute right-0 top-full mt-2 z-50 w-[680px] bg-white dark:bg-[#18181c] border border-zinc-200 dark:border-zinc-700 rounded-xl shadow-2xl">
+              <!-- Header -->
+              <div class="flex items-center justify-between px-4 py-3 border-b border-zinc-200 dark:border-zinc-700">
+                <span class="text-sm font-bold text-zinc-800 dark:text-zinc-100">Filters</span>
+                <button @click="resetFilters"
+                  class="text-xs font-semibold text-orange-400 hover:text-orange-500 transition-colors px-2 py-1 rounded hover:bg-orange-400/10 cursor-pointer">
+                  Reset
+                </button>
+              </div>
+              <!-- Filter Grid: 1 column -->
+              <div class="flex flex-col gap-4 p-4">
+                <!-- Assignee -->
+                <div class="flex flex-col gap-1.5">
+                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Assignee</label>
+                  <select v-model="fAssignee"
+                    class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
+                    <option value="">All</option>
+                    <option v-for="opt in assigneeOptions" :key="opt" :value="opt">{{ opt }}</option>
+                  </select>
+                </div>
+                <!-- Order Status -->
+                <div class="flex flex-col gap-1.5">
+                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Order Status</label>
+                  <select v-model="fStatus"
+                    class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
+                    <option value="">All</option>
+                    <option v-for="opt in statuses.filter(s => s !== 'All')" :key="opt" :value="opt">{{ opt }}</option>
+                  </select>
+                </div>
+                <!-- Product -->
+                <div class="flex flex-col gap-1.5">
+                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Product</label>
+                  <select v-model="fProduct"
+                    class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
+                    <option value="">All</option>
+                    <option v-for="opt in productOptions" :key="opt" :value="opt">{{ opt }}</option>
+                  </select>
+                </div>
+                <!-- Variant -->
+                <div class="flex flex-col gap-1.5">
+                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Variant</label>
+                  <select v-model="fVariant"
+                    class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
+                    <option value="">All</option>
+                    <option v-for="opt in variantOptions" :key="opt" :value="opt">{{ opt }}</option>
+                  </select>
+                </div>
+                <!-- Source -->
+                <div class="flex flex-col gap-1.5">
+                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Source</label>
+                  <select v-model="fSource"
+                    class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
+                    <option value="">All</option>
+                    <option v-for="opt in sourceOptions" :key="opt" :value="opt">{{ opt }}</option>
+                  </select>
+                </div>
+                <!-- Customer Tag -->
+                <div class="flex flex-col gap-1.5">
+                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Customer Tag</label>
+                  <select v-model="fCustomerTag"
+                    class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
+                    <option value="">All</option>
+                    <option v-for="opt in customerTagOptions" :key="opt" :value="opt">{{ opt }}</option>
+                  </select>
+                </div>
+                <!-- Courier -->
+                <div class="flex flex-col gap-1.5">
+                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Courier</label>
+                  <select v-model="fCourier"
+                    class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
+                    <option value="">All</option>
+                    <option v-for="opt in courierOptions" :key="opt" :value="opt">{{ opt }}</option>
+                  </select>
+                </div>
+                <!-- Call Status -->
+                <div class="flex flex-col gap-1.5">
+                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Call Status</label>
+                  <select v-model="fCallStatus"
+                    class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
+                    <option value="">All</option>
+                    <option v-for="opt in callStatusOptions" :key="opt" :value="opt">{{ opt }}</option>
+                  </select>
+                </div>
+              </div>
+              <!-- Footer -->
+              <div class="flex items-center justify-end px-4 py-3 border-t border-zinc-200 dark:border-zinc-700">
+                <button
+                  class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer">
+                  Apply filters
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -577,4 +700,7 @@ function exportOrders() {
       </div>
     </div>
   </div>
+
+  <!-- Filter backdrop -->
+  <div v-if="filterOpen" @click="filterOpen = false" class="fixed inset-0 z-40" />
 </template>
