@@ -374,9 +374,9 @@ function exportOrders() {
 
             <!-- Filter Dropdown Panel -->
             <div v-if="filterOpen"
-              class="absolute right-0 top-full mt-2 z-50 w-[680px] bg-white dark:bg-[#18181c] border border-zinc-200 dark:border-zinc-700 rounded-xl shadow-2xl">
+              class="absolute right-0 top-full mt-2 z-50 w-[300px] bg-white dark:bg-[#18181c] border border-zinc-200 dark:border-zinc-700 rounded-xl shadow-2xl">
               <!-- Header -->
-              <div class="flex items-center justify-between px-4 py-3 border-b border-zinc-200 dark:border-zinc-700">
+              <div class="flex items-center justify-between px-4 py-3">
                 <span class="text-sm font-bold text-zinc-800 dark:text-zinc-100">Filters</span>
                 <button @click="resetFilters"
                   class="text-xs font-semibold text-orange-400 hover:text-orange-500 transition-colors px-2 py-1 rounded hover:bg-orange-400/10 cursor-pointer">
@@ -387,7 +387,7 @@ function exportOrders() {
               <div class="flex flex-col gap-4 p-4">
                 <!-- Assignee -->
                 <div class="flex flex-col gap-1.5">
-                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Assignee</label>
+                  <label class="text-[13px] font-bold tracking-wider text-zinc-400">Assignee</label>
                   <select v-model="fAssignee"
                     class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
                     <option value="">All</option>
@@ -396,7 +396,7 @@ function exportOrders() {
                 </div>
                 <!-- Order Status -->
                 <div class="flex flex-col gap-1.5">
-                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Order Status</label>
+                  <label class="text-[13px] font-bold tracking-wider text-zinc-400">Order Status</label>
                   <select v-model="fStatus"
                     class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
                     <option value="">All</option>
@@ -405,7 +405,7 @@ function exportOrders() {
                 </div>
                 <!-- Product -->
                 <div class="flex flex-col gap-1.5">
-                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Product</label>
+                  <label class="text-[13px] font-bold tracking-wider text-zinc-400">Product</label>
                   <select v-model="fProduct"
                     class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
                     <option value="">All</option>
@@ -414,7 +414,7 @@ function exportOrders() {
                 </div>
                 <!-- Variant -->
                 <div class="flex flex-col gap-1.5">
-                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Variant</label>
+                  <label class="text-[13px] font-bold tracking-wider text-zinc-400">Variant</label>
                   <select v-model="fVariant"
                     class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
                     <option value="">All</option>
@@ -423,7 +423,7 @@ function exportOrders() {
                 </div>
                 <!-- Source -->
                 <div class="flex flex-col gap-1.5">
-                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Source</label>
+                  <label class="text-[13px] font-bold tracking-wider text-zinc-400">Source</label>
                   <select v-model="fSource"
                     class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
                     <option value="">All</option>
@@ -432,7 +432,7 @@ function exportOrders() {
                 </div>
                 <!-- Customer Tag -->
                 <div class="flex flex-col gap-1.5">
-                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Customer Tag</label>
+                  <label class="text-[13px] font-bold tracking-wider text-zinc-400">Customer Tag</label>
                   <select v-model="fCustomerTag"
                     class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
                     <option value="">All</option>
@@ -441,7 +441,7 @@ function exportOrders() {
                 </div>
                 <!-- Courier -->
                 <div class="flex flex-col gap-1.5">
-                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Courier</label>
+                  <label class="text-[13px] font-bold tracking-wider text-zinc-400">Courier</label>
                   <select v-model="fCourier"
                     class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
                     <option value="">All</option>
@@ -450,7 +450,7 @@ function exportOrders() {
                 </div>
                 <!-- Call Status -->
                 <div class="flex flex-col gap-1.5">
-                  <label class="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Call Status</label>
+                  <label class="text-[13px] font-bold tracking-wider text-zinc-400">Call Status</label>
                   <select v-model="fCallStatus"
                     class="h-9 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[13px] text-zinc-700 dark:text-zinc-300 outline-none focus:border-orange-400 cursor-pointer">
                     <option value="">All</option>
@@ -459,9 +459,9 @@ function exportOrders() {
                 </div>
               </div>
               <!-- Footer -->
-              <div class="flex items-center justify-end px-4 py-3 border-t border-zinc-200 dark:border-zinc-700">
+              <div class="flex items-center justify-start px-4 py-3">
                 <button
-                  class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer">
+                  class="px-4 py-2 bg-orange-400 hover:bg-orange-600 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer">
                   Apply filters
                 </button>
               </div>
