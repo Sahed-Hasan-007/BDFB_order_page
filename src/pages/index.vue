@@ -557,7 +557,7 @@ function exportOrders() {
                 :class="[
                   'flex items-center justify-center w-9 h-9 border border-zinc-200 dark:border-zinc-700 font-medium text-sm transition-all focus:outline-none',
                   p === page
-                    ? 'bg-zinc-700 dark:bg-zinc-600 text-white dark:text-white'
+                    ? 'bg-orange-400/10 dark:bg-orange-400/10 text-orange-400 dark:text-orange-400 border-orange-400/40 dark:border-orange-400/40'
                     : 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700 hover:text-zinc-800 dark:hover:text-zinc-200 cursor-pointer'
                 ]">
                 {{ p }}
