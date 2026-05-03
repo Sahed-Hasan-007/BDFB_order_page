@@ -362,7 +362,7 @@ function exportOrders() {
             <tr v-for="order in paginated" :key="order.id"
               class="hover:bg-primary-50/50 dark:hover:bg-primary-950/5 transition-colors">
               <!-- Order info -->
-              <td class="px-4 py-3 border-b border-zinc-200 dark:border-zinc-700 align-top">
+              <td class="px-4 py-3 border-b border-zinc-200 dark:border-zinc-700 align-center">
 
                 <!-- Order ID -->
                 <div class="text-[#00b8da] font-semibold text-sm mb-1">
@@ -387,7 +387,7 @@ function exportOrders() {
               </td>
 
               <!-- Customer -->
-              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top text-[14px]">
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-center text-[14px]">
                 <div class="font-semibold text-zinc-900 dark:text-zinc-100 mb-0.5">{{ order.customerName
                   }}</div>
                 <div class="text-zinc-500 dark:text-zinc-100 mb-0.5">{{ order.customerPhone
@@ -396,14 +396,14 @@ function exportOrders() {
                 </div>
               </td>
               <!-- Products -->
-              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-center">
                 <div v-for="p in order.products" :key="p.name" class="flex items-center gap-1 mb-1 last:mb-0">
                   <span class="text-zinc-700 dark:text-[#0a91b2] text-[15px]">{{ p.name }}</span>
                   <span class="text-[14px] font-bold text-primary-400 ml-0.5">×{{ p.qty }}</span>
                 </div>
               </td>
               <!-- Financials -->
-              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-center">
                 <div class="grid grid-cols-2 gap-y-0.5 text-[12px]">
                   <span class="text-zinc-400">Subtotal</span>
                   <span class="text-zinc-700 dark:text-zinc-300 font-medium">৳{{
@@ -437,10 +437,10 @@ function exportOrders() {
 
               <!-- Status -->
               <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-center">
-                <span class="inline-block px-2.5 py-1 rounded-full text-[11px] font-bold"
-                  :class="statusClass[order.status]">
+                <div class="flex items-center text-[14px] bg-white dark:bg-[#155cfc] gap-1.5 p-2 rounded-lg font-semibold text-zinc-800 dark:text-zinc-200 mb-0.5 w-fit">
+                  <Icon name="material-symbols:delivery-truck-speed" class="w-5 h-5 text-zinc-800 dark:text-zinc-200 shrink-0" />
                   {{ order.status }}
-                </span>
+                </div>
               </td>
 
               <!-- Actions -->
