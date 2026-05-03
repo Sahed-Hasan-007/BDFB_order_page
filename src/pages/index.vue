@@ -429,7 +429,7 @@ function exportOrders() {
 
               <!-- Courier -->
               <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-center">
-                <div class="flex items-center text-[14px] gap-1.5 font-semibold text-zinc-800 dark:text-zinc-200 mb-0.5">
+                <div class="flex items-center text-[14px] bg-white dark:bg-[#c65f00] gap-1.5 p-2 rounded-lg font-semibold text-zinc-800 dark:text-zinc-200 mb-0.5">
                   <Icon name="material-symbols:delivery-truck-speed" class="w-5 h-5 text-zinc-800 dark:text-zinc-200 shrink-0" />
                   {{ order.courierName }}
                 </div>
