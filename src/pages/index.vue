@@ -354,7 +354,7 @@ function exportOrders() {
 
     <!-- Main card -->
     <div
-      class="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-700 overflow-hidden shadow-sm">
+      class="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-700 shadow-sm">
 
       <!-- Toolbar: search -->
       <div
