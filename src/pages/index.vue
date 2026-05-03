@@ -212,6 +212,19 @@ const filtered = computed(() =>
 const totalPages = computed(() => Math.max(1, Math.ceil(filtered.value.length / pageSize.value)));
 const paginated = computed(() => filtered.value.slice((page.value - 1) * pageSize.value, page.value * pageSize.value));
 
+const visiblePages = computed(() => {
+  const total = totalPages.value;
+  const current = page.value;
+  const delta = 2;
+  const pages: (number | '...')[] = [];
+  const left = Math.max(1, current - delta);
+  const right = Math.min(total, current + delta);
+  if (left > 1) { pages.push(1); if (left > 2) pages.push('...'); }
+  for (let i = left; i <= right; i++) pages.push(i);
+  if (right < total) { if (right < total - 1) pages.push('...'); pages.push(total); }
+  return pages;
+});
+
 watch([activeStatus, search, pageSize], () => { page.value = 1; });
 
 const grandTotal = (o: Order) => o.subtotal + o.deliveryFee - o.discount;
@@ -528,18 +541,38 @@ function exportOrders() {
           </select>
         </div>
 
-        <!-- Right: prev/next -->
-        <div class="flex items-center gap-1.5">
-          <button :disabled="page <= 1" @click="page--"
-            class="px-2.5 py-1.5 border border-zinc-200 dark:border-zinc-700 rounded-lg text-xs font-semibold bg-white dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-zinc-400 disabled:opacity-35 disabled:cursor-not-allowed transition-all">
-            Previous
-          </button>
-          <span class="text-[13px] font-bold text-zinc-900 dark:text-zinc-100 px-1">{{ page }} / {{ totalPages }}</span>
-          <button :disabled="page >= totalPages" @click="page++"
-            class="px-2.5 py-1.5 border border-zinc-200 dark:border-zinc-700 rounded-lg text-xs font-semibold bg-white dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-zinc-400 disabled:opacity-35 disabled:cursor-not-allowed transition-all">
-            Next
-          </button>
-        </div>
+        <!-- Right: page navigation -->
+        <nav>
+          <ul class="flex -space-x-px text-sm">
+            <!-- Prev -->
+            <li>
+              <button :disabled="page <= 1" @click="page--"
+                class="flex items-center justify-center w-9 h-9 border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 rounded-l-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 hover:text-zinc-700 dark:hover:text-zinc-200 disabled:opacity-35 disabled:cursor-not-allowed transition-all focus:outline-none">
+                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/></svg>
+              </button>
+            </li>
+            <!-- Page numbers -->
+            <li v-for="p in visiblePages" :key="String(p)">
+              <button v-if="p !== '...'" @click="page = p as number"
+                :class="[
+                  'flex items-center justify-center w-9 h-9 border border-zinc-200 dark:border-zinc-700 font-medium text-sm transition-all focus:outline-none',
+                  p === page
+                    ? 'bg-zinc-700 dark:bg-zinc-600 text-white dark:text-white'
+                    : 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700 hover:text-zinc-800 dark:hover:text-zinc-200 cursor-pointer'
+                ]">
+                {{ p }}
+              </button>
+              <span v-else class="flex items-center justify-center w-9 h-9 border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500 text-sm select-none">…</span>
+            </li>
+            <!-- Next -->
+            <li>
+              <button :disabled="page >= totalPages" @click="page++"
+                class="flex items-center justify-center w-9 h-9 border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 rounded-r-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 hover:text-zinc-700 dark:hover:text-zinc-200 disabled:opacity-35 disabled:cursor-not-allowed transition-all focus:outline-none">
+                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/></svg>
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
