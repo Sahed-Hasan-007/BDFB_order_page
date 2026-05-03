@@ -428,11 +428,11 @@ function exportOrders() {
               </td>
 
               <!-- Courier -->
-              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
-                <div class="font-semibold text-zinc-800 dark:text-zinc-200 mb-0.5">{{ order.courierName
-                  }}</div>
-                <div class="text-[11px] font-mono text-zinc-400 dark:text-zinc-500">{{
-                  order.courierTracking }}</div>
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-center">
+                <div class="flex items-center gap-1.5 font-semibold text-zinc-800 dark:text-zinc-200 mb-0.5">
+                  <Icon name="material-symbols:delivery-truck-speed" class="w-4 h-4 text-orange-400 shrink-0" />
+                  {{ order.courierName }}
+                </div>
               </td>
 
               <!-- Status -->
