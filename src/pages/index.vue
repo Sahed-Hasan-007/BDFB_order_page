@@ -438,13 +438,13 @@ function exportOrders() {
               <!-- Status -->
               <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-center">
                 <div class="flex items-center text-[14px] bg-white dark:bg-[#155cfc] gap-1.5 p-2 rounded-lg font-semibold text-zinc-800 dark:text-zinc-200 mb-0.5 w-fit">
-                  <Icon name="material-symbols:delivery-truck-speed" class="w-5 h-5 text-zinc-800 dark:text-zinc-200 shrink-0" />
+                  <Icon name="material-symbols:android-chat" class="w-5 h-5 text-zinc-800 dark:text-zinc-200 shrink-0" />
                   {{ order.status }}
                 </div>
               </td>
 
               <!-- Actions -->
-              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-top">
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-center">
                 <div class="flex items-center justify-center gap-1.5 flex-wrap">
                   <!-- Print -->
                   <button title="Print"
