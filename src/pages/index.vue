@@ -457,17 +457,27 @@ function exportOrders() {
                 <div class="flex items-center justify-center gap-3 flex-wrap">
                   <!-- Print -->
                   <div class="relative group">
-                    <button class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-zinc-400 cursor-pointer hover:text-zinc-700 dark:hover:text-zinc-200 transition-all">
-                      <Icon name="lucide:printer" class="w-4 h-4" />
+                    <button class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-orange-400 cursor-pointer hover:text-zinc-700 dark:hover:text-[#c65f00] transition-all">
+                      <Icon name="heroicons:printer-solid" class="w-5 h-5" />
                     </button>
                     <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 rounded-md bg-zinc-900 dark:bg-zinc-700 text-white text-[11px] font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-0 z-50">
                       Print Invoice
                       <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-zinc-900 dark:border-t-zinc-700"></div>
                     </div>
                   </div>
+                  <!-- Received Paid Amount -->
+                  <div class="relative group">
+                    <button class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-zinc-400 cursor-pointer hover:text-emerald-600 dark:hover:text-[#c65f00] transition-all">
+                      <Icon name="lucide:circle-dollar-sign" class="w-4 h-4" />
+                    </button>
+                    <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 rounded-md bg-zinc-900 dark:bg-zinc-700 text-white text-[11px] font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-0 z-50">
+                      Received Paid Amount
+                      <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-zinc-900 dark:border-t-zinc-700"></div>
+                    </div>
+                  </div>
                   <!-- Copy -->
                   <div class="relative group">
-                    <button class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-zinc-400 cursor-pointer hover:text-zinc-700 dark:hover:text-zinc-200 transition-all">
+                    <button class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-zinc-400 cursor-pointer hover:text-zinc-700 dark:hover:text-[#c65f00] transition-all">
                       <Icon name="lucide:copy" class="w-4 h-4" />
                     </button>
                     <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 rounded-md bg-zinc-900 dark:bg-zinc-700 text-white text-[11px] font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-0 z-50">
@@ -477,7 +487,7 @@ function exportOrders() {
                   </div>
                   <!-- View -->
                   <div class="relative group">
-                    <button class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-zinc-400 cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-all">
+                    <button class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-zinc-400 cursor-pointer hover:text-blue-600 dark:hover:text-[#c65f00] transition-all">
                       <Icon name="lucide:eye" class="w-4 h-4" />
                     </button>
                     <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 rounded-md bg-zinc-900 dark:bg-zinc-700 text-white text-[11px] font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-0 z-50">
@@ -487,7 +497,7 @@ function exportOrders() {
                   </div>
                   <!-- Edit -->
                   <div class="relative group">
-                    <button class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-zinc-400 cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-all">
+                    <button class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-zinc-400 cursor-pointer hover:text-green-600 dark:hover:text-[#c65f00] transition-all">
                       <Icon name="lucide:pencil" class="w-4 h-4" />
                     </button>
                     <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 rounded-md bg-zinc-900 dark:bg-zinc-700 text-white text-[11px] font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-0 z-50">
