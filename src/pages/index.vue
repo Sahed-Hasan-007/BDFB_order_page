@@ -74,6 +74,7 @@ interface Order {
   courierName: string;
   courierTracking: string;
   status: OrderStatus;
+  agentName: string;
 }
 
 const orders = ref<Order[]>([
@@ -81,121 +82,121 @@ const orders = ref<Order[]>([
     id: "#ORD-3001", date: "13 Apr, 09:24 AM", deliveryType: "Home delivery", source: "Facebook",
     customerName: "Karim Hassan", customerPhone: "01712-345678", customerAddress: "Mirpur-10, Dhaka",
     products: [{ name: "Cotton Polo Shirt", qty: 2 }, { name: "Slim Fit Jeans", qty: 1 }],
-    subtotal: 2400, deliveryFee: 80, discount: 100, paid: 2380, courierName: "Pathao", courierTracking: "TRK100001", status: "Confirmed",
+    subtotal: 2400, deliveryFee: 80, discount: 100, paid: 2380, courierName: "Pathao", courierTracking: "TRK100001", status: "Confirmed", agentName: "Rahim Uddin",
   },
   {
     id: "#ORD-3002", date: "13 Apr, 09:11 AM", deliveryType: "Express", source: "Website",
     customerName: "Rima Akter", customerPhone: "01812-234567", customerAddress: "Gulshan-2, Dhaka",
     products: [{ name: "Wireless Earbuds", qty: 1 }],
-    subtotal: 1800, deliveryFee: 120, discount: 0, paid: 0, courierName: "Steadfast", courierTracking: "TRK100002", status: "Pending",
+    subtotal: 1800, deliveryFee: 120, discount: 0, paid: 0, courierName: "Steadfast", courierTracking: "TRK100002", status: "Pending", agentName: "Farhan Ali",
   },
   {
     id: "#ORD-3003", date: "13 Apr, 08:58 AM", deliveryType: "Standard", source: "WhatsApp",
     customerName: "Sajib Mondal", customerPhone: "01912-876543", customerAddress: "Uttara Sector-7",
     products: [{ name: "Running Shoes", qty: 1 }, { name: "Sports Socks", qty: 3 }],
-    subtotal: 3500, deliveryFee: 100, discount: 200, paid: 3400, courierName: "Redx", courierTracking: "TRK100003", status: "Shipped",
+    subtotal: 3500, deliveryFee: 100, discount: 200, paid: 3400, courierName: "Redx", courierTracking: "TRK100003", status: "Shipped", agentName: "Farhan Ali",
   },
   {
     id: "#ORD-3004", date: "13 Apr, 08:43 AM", deliveryType: "Home delivery", source: "Phone",
     customerName: "Meherun Nessa", customerPhone: "01611-456789", customerAddress: "Mohammadpur, Dhaka",
     products: [{ name: "Leather Wallet", qty: 1 }, { name: "Belt", qty: 1 }],
-    subtotal: 950, deliveryFee: 60, discount: 0, paid: 0, courierName: "eCourier", courierTracking: "TRK100004", status: "Canceled",
+    subtotal: 950, deliveryFee: 60, discount: 0, paid: 0, courierName: "eCourier", courierTracking: "TRK100004", status: "Canceled", agentName: "Nadia Islam",
   },
   {
     id: "#ORD-3005", date: "13 Apr, 08:32 AM", deliveryType: "Home delivery", source: "Facebook",
     customerName: "Jahangir Alam", customerPhone: "01511-654321", customerAddress: "Dhanmondi-27",
     products: [{ name: "Smart Watch", qty: 1 }],
-    subtotal: 5500, deliveryFee: 0, discount: 500, paid: 5000, courierName: "Pathao", courierTracking: "TRK100005", status: "Delivered",
+    subtotal: 5500, deliveryFee: 0, discount: 500, paid: 5000, courierName: "Pathao", courierTracking: "TRK100005", status: "Delivered", agentName: "Rahim Uddin",
   },
   {
     id: "#ORD-3006", date: "13 Apr, 08:17 AM", deliveryType: "Store pickup", source: "Walk-in",
     customerName: "Taslima Begum", customerPhone: "01711-123456", customerAddress: "Banani, Dhaka",
     products: [{ name: "Face Cream", qty: 2 }, { name: "Serum", qty: 1 }, { name: "Toner", qty: 1 }],
-    subtotal: 2200, deliveryFee: 0, discount: 150, paid: 1000, courierName: "Sundarban", courierTracking: "TRK100006", status: "Followup",
+    subtotal: 2200, deliveryFee: 0, discount: 150, paid: 1000, courierName: "Sundarban", courierTracking: "TRK100006", status: "Followup", agentName: "Tasnim Khanam",
   },
   {
     id: "#ORD-3007", date: "13 Apr, 08:05 AM", deliveryType: "Express", source: "Website",
     customerName: "Rafiqul Islam", customerPhone: "01811-345678", customerAddress: "Wari, Dhaka",
     products: [{ name: "Formal Shirt", qty: 1 }, { name: "Trouser", qty: 1 }],
-    subtotal: 3200, deliveryFee: 80, discount: 0, paid: 3280, courierName: "Redx", courierTracking: "TRK100007", status: "Ready To Ship",
+    subtotal: 3200, deliveryFee: 80, discount: 0, paid: 3280, courierName: "Redx", courierTracking: "TRK100007", status: "Ready To Ship", agentName: "Farhan Ali",
   },
   {
     id: "#ORD-3008", date: "13 Apr, 07:54 AM", deliveryType: "Standard", source: "Facebook",
     customerName: "Shirin Sultana", customerPhone: "01711-987654", customerAddress: "Narayanganj",
     products: [{ name: "Kurti Set", qty: 2 }],
-    subtotal: 1400, deliveryFee: 100, discount: 0, paid: 1500, courierName: "Pathao", courierTracking: "TRK100008", status: "Returned",
+    subtotal: 1400, deliveryFee: 100, discount: 0, paid: 1500, courierName: "Pathao", courierTracking: "TRK100008", status: "Returned", agentName: "Sumaiya Begum",
   },
   {
     id: "#ORD-3009", date: "13 Apr, 07:41 AM", deliveryType: "Home delivery", source: "WhatsApp",
     customerName: "Monir Hossain", customerPhone: "01612-543210", customerAddress: "Gazipur Sadar",
     products: [{ name: "Laptop Bag", qty: 1 }],
-    subtotal: 1900, deliveryFee: 120, discount: 100, paid: 1920, courierName: "Steadfast", courierTracking: "TRK100009", status: "Payment-received",
+    subtotal: 1900, deliveryFee: 120, discount: 100, paid: 1920, courierName: "Steadfast", courierTracking: "TRK100009", status: "Payment-received", agentName: "Nadia Islam",
   },
   {
     id: "#ORD-3010", date: "13 Apr, 07:28 AM", deliveryType: "Home delivery", source: "Phone",
     customerName: "Nasrin Khatun", customerPhone: "01912-112233", customerAddress: "Tongi, Gazipur",
     products: [{ name: "Baby Onesie", qty: 3 }, { name: "Baby Cap", qty: 2 }],
-    subtotal: 1600, deliveryFee: 80, discount: 0, paid: 0, courierName: "eCourier", courierTracking: "TRK100010", status: "Unresolved",
+    subtotal: 1600, deliveryFee: 80, discount: 0, paid: 0, courierName: "eCourier", courierTracking: "TRK100010", status: "Unresolved", agentName: "Tasnim Khanam",
   },
   {
     id: "#ORD-3011", date: "13 Apr, 07:10 AM", deliveryType: "Express", source: "Website",
     customerName: "Arif Hossain", customerPhone: "01712-998877", customerAddress: "Dhanmondi-32, Dhaka",
     products: [{ name: "Sneakers", qty: 1 }],
-    subtotal: 4200, deliveryFee: 0, discount: 200, paid: 4000, courierName: "Pathao", courierTracking: "TRK100011", status: "Hold-by-courier",
+    subtotal: 4200, deliveryFee: 0, discount: 200, paid: 4000, courierName: "Pathao", courierTracking: "TRK100011", status: "Hold-by-courier", agentName: "Rahim Uddin",
   },
   {
     id: "#ORD-3012", date: "12 Apr, 06:50 PM", deliveryType: "Standard", source: "Facebook",
     customerName: "Nusrat Jahan", customerPhone: "01611-774455", customerAddress: "Mirpur-1, Dhaka",
     products: [{ name: "Hijab (Chiffon)", qty: 4 }],
-    subtotal: 1200, deliveryFee: 60, discount: 60, paid: 1200, courierName: "Sundarban", courierTracking: "TRK100012", status: "Delivered",
+    subtotal: 1200, deliveryFee: 60, discount: 60, paid: 1200, courierName: "Sundarban", courierTracking: "TRK100012", status: "Delivered", agentName: "Farhan Ali",
   },
   {
     id: "#ORD-3013", date: "12 Apr, 05:30 PM", deliveryType: "Home delivery", source: "WhatsApp",
     customerName: "Saiful Islam", customerPhone: "01811-336699", customerAddress: "Rampura, Dhaka",
     products: [{ name: "Gym Gloves", qty: 1 }, { name: "Protein Shaker", qty: 2 }],
-    subtotal: 950, deliveryFee: 80, discount: 0, paid: 500, courierName: "Redx", courierTracking: "TRK100013", status: "Pending",
+    subtotal: 950, deliveryFee: 80, discount: 0, paid: 500, courierName: "Redx", courierTracking: "TRK100013", status: "Pending", agentName: "Sumaiya Begum",
   },
   {
     id: "#ORD-3014", date: "12 Apr, 04:15 PM", deliveryType: "Store pickup", source: "Walk-in",
     customerName: "Fatima Khan", customerPhone: "01912-556677", customerAddress: "Khilgaon, Dhaka",
     products: [{ name: "Sunscreen SPF 50", qty: 2 }, { name: "Lip Balm", qty: 3 }],
-    subtotal: 1100, deliveryFee: 0, discount: 100, paid: 1000, courierName: "eCourier", courierTracking: "TRK100014", status: "Confirmed",
+    subtotal: 1100, deliveryFee: 0, discount: 100, paid: 1000, courierName: "eCourier", courierTracking: "TRK100014", status: "Confirmed", agentName: "Nadia Islam",
   },
   {
     id: "#ORD-3015", date: "12 Apr, 03:00 PM", deliveryType: "Express", source: "Facebook",
     customerName: "Rahul Ahmed", customerPhone: "01712-223344", customerAddress: "Badda, Dhaka",
     products: [{ name: "Formal Blazer", qty: 1 }],
-    subtotal: 6500, deliveryFee: 0, discount: 500, paid: 6000, courierName: "Steadfast", courierTracking: "TRK100015", status: "Shipped",
+    subtotal: 6500, deliveryFee: 0, discount: 500, paid: 6000, courierName: "Steadfast", courierTracking: "TRK100015", status: "Shipped", agentName: "Tasnim Khanam",
   },
   {
     id: "#ORD-3016", date: "12 Apr, 01:45 PM", deliveryType: "Home delivery", source: "Phone",
     customerName: "Dilruba Khanam", customerPhone: "01611-998800", customerAddress: "Demra, Dhaka",
     products: [{ name: "Cotton Saree", qty: 1 }],
-    subtotal: 2800, deliveryFee: 100, discount: 0, paid: 0, courierName: "Pathao", courierTracking: "TRK100016", status: "Followup",
+    subtotal: 2800, deliveryFee: 100, discount: 0, paid: 0, courierName: "Pathao", courierTracking: "TRK100016", status: "Followup", agentName: "Rahim Uddin",
   },
   {
     id: "#ORD-3017", date: "12 Apr, 12:30 PM", deliveryType: "Standard", source: "Website",
     customerName: "Mosharraf Hossain", customerPhone: "01812-667788", customerAddress: "Motijheel, Dhaka",
     products: [{ name: "Leather Shoes", qty: 1 }, { name: "Shoe Polish", qty: 1 }],
-    subtotal: 3800, deliveryFee: 80, discount: 200, paid: 3680, courierName: "Sundarban", courierTracking: "TRK100017", status: "Ready To Ship",
+    subtotal: 3800, deliveryFee: 80, discount: 200, paid: 3680, courierName: "Sundarban", courierTracking: "TRK100017", status: "Ready To Ship", agentName: "Farhan Ali",
   },
   {
     id: "#ORD-3018", date: "12 Apr, 11:10 AM", deliveryType: "Home delivery", source: "WhatsApp",
     customerName: "Sumaiya Islam", customerPhone: "01712-443322", customerAddress: "Shyamoli, Dhaka",
     products: [{ name: "Kids T-Shirt", qty: 3 }, { name: "Kids Shorts", qty: 2 }],
-    subtotal: 1500, deliveryFee: 60, discount: 0, paid: 1560, courierName: "Redx", courierTracking: "TRK100018", status: "Payment-received",
+    subtotal: 1500, deliveryFee: 60, discount: 0, paid: 1560, courierName: "Redx", courierTracking: "TRK100018", status: "Payment-received", agentName: "Sumaiya Begum",
   },
   {
     id: "#ORD-3019", date: "12 Apr, 10:00 AM", deliveryType: "Express", source: "Facebook",
     customerName: "Tanvir Ahmed", customerPhone: "01911-554433", customerAddress: "Lalmatia, Dhaka",
     products: [{ name: "Wireless Mouse", qty: 1 }, { name: "Keyboard", qty: 1 }],
-    subtotal: 3200, deliveryFee: 0, discount: 300, paid: 0, courierName: "eCourier", courierTracking: "TRK100019", status: "Unresolved",
+    subtotal: 3200, deliveryFee: 0, discount: 300, paid: 0, courierName: "eCourier", courierTracking: "TRK100019", status: "Unresolved", agentName: "Nadia Islam",
   },
   {
     id: "#ORD-3020", date: "12 Apr, 09:00 AM", deliveryType: "Home delivery", source: "Phone",
     customerName: "Khaleda Akter", customerPhone: "01611-221133", customerAddress: "Jatrabari, Dhaka",
     products: [{ name: "Pressure Cooker", qty: 1 }],
-    subtotal: 2600, deliveryFee: 150, discount: 0, paid: 1500, courierName: "Steadfast", courierTracking: "TRK100020", status: "Hold-by-courier",
+    subtotal: 2600, deliveryFee: 150, discount: 0, paid: 1500, courierName: "Steadfast", courierTracking: "TRK100020", status: "Hold-by-courier", agentName: "Tasnim Khanam",
   },
 ]);
 
@@ -376,7 +377,7 @@ function exportOrders() {
 
                 <!-- Delivery Type Badge -->
                 <div class="flex flex-col gap-1">
-                  <span class="w-fit px-2.5 py-0.5 text-[13px] font-medium rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                  <span class="w-fit px-2.5 py-0.5 text-[13px] font-medium rounded-md bg-indigo-700/10 text-indigo-200 border border-indigo-500/20">
                     {{ order.source }}
                   </span>
                   <span class="w-fit px-2.5 py-0.5 text-[13px] font-medium rounded-md border bg-orange-500/10 text-orange-300 border-orange-500/20">
@@ -443,29 +444,57 @@ function exportOrders() {
                 </div>
               </td>
 
-              <!-- Actions -->
+              <!-- Agent -->
               <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700  align-center">
-                <div class="flex items-center justify-center gap-1.5 flex-wrap">
+                <div class="flex items-center text-[14px] bg-white dark:bg-[#009689] gap-1.5 p-2 rounded-lg font-semibold text-zinc-800 dark:text-zinc-200 mb-0.5 w-fit">
+                  <Icon name="lucide:user" class="w-4 h-4 text-zinc-800 dark:text-zinc-200 shrink-0" />
+                  {{ order.agentName }}
+                </div>
+              </td>
+
+              <!-- Actions -->
+              <td class="px-3.5 py-3 border-b border-zinc-200 dark:border-zinc-700 align-center">
+                <div class="flex items-center justify-center gap-3 flex-wrap">
                   <!-- Print -->
-                  <button title="Print"
-                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-400 cursor-pointer hover:bg-zinc-50 hover:text-zinc-700 dark:hover:bg-zinc-700 dark:hover:text-zinc-200 transition-all">
-                    <Icon name="lucide:printer" class="w-3.5 h-3.5" />
-                  </button>
+                  <div class="relative group">
+                    <button class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-zinc-400 cursor-pointer hover:text-zinc-700 dark:hover:text-zinc-200 transition-all">
+                      <Icon name="lucide:printer" class="w-4 h-4" />
+                    </button>
+                    <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 rounded-md bg-zinc-900 dark:bg-zinc-700 text-white text-[11px] font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-0 z-50">
+                      Print Invoice
+                      <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-zinc-900 dark:border-t-zinc-700"></div>
+                    </div>
+                  </div>
                   <!-- Copy -->
-                  <button title="Copy"
-                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-400 cursor-pointer hover:bg-zinc-50 hover:text-zinc-700 dark:hover:bg-zinc-700 dark:hover:text-zinc-200 transition-all">
-                    <Icon name="lucide:copy" class="w-3.5 h-3.5" />
-                  </button>
+                  <div class="relative group">
+                    <button class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-zinc-400 cursor-pointer hover:text-zinc-700 dark:hover:text-zinc-200 transition-all">
+                      <Icon name="lucide:copy" class="w-4 h-4" />
+                    </button>
+                    <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 rounded-md bg-zinc-900 dark:bg-zinc-700 text-white text-[11px] font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-0 z-50">
+                      Copy Order
+                      <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-zinc-900 dark:border-t-zinc-700"></div>
+                    </div>
+                  </div>
                   <!-- View -->
-                  <button title="View"
-                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-400 cursor-pointer hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 dark:hover:bg-blue-950/20 dark:hover:border-blue-900/40 dark:hover:text-blue-400 transition-all">
-                    <Icon name="lucide:eye" class="w-3.5 h-3.5" />
-                  </button>
+                  <div class="relative group">
+                    <button class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-zinc-400 cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-all">
+                      <Icon name="lucide:eye" class="w-4 h-4" />
+                    </button>
+                    <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 rounded-md bg-zinc-900 dark:bg-zinc-700 text-white text-[11px] font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-0 z-50">
+                      View Details
+                      <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-zinc-900 dark:border-t-zinc-700"></div>
+                    </div>
+                  </div>
                   <!-- Edit -->
-                  <button title="Edit"
-                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-400 cursor-pointer hover:bg-green-50 hover:border-green-200 hover:text-green-600 dark:hover:bg-green-950/20 dark:hover:border-green-900/40 dark:hover:text-green-400 transition-all">
-                    <Icon name="lucide:pencil" class="w-3.5 h-3.5" />
-                  </button>
+                  <div class="relative group">
+                    <button class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-zinc-400 cursor-pointer hover:text-green-600 dark:hover:text-green-400 transition-all">
+                      <Icon name="lucide:pencil" class="w-4 h-4" />
+                    </button>
+                    <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 rounded-md bg-zinc-900 dark:bg-zinc-700 text-white text-[11px] font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-0 z-50">
+                      Edit Order
+                      <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-zinc-900 dark:border-t-zinc-700"></div>
+                    </div>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -475,7 +504,7 @@ function exportOrders() {
 
       <!-- Pagination -->
       <div
-        class="flex flex-col md:flex-row items-center justify-between px-4 py-3 border-t border-primary-100 dark:border-primary-900/15 gap-2">
+        class="flex flex-col md:flex-row items-center justify-between px-4 py-3 border-primary-100 dark:border-primary-900/15 gap-2">
         <span class="text-xs font-medium text-zinc-400 dark:text-zinc-500 tracking-wide">
           Showing {{ paginated.length ? (page - 1) * pageSize + 1 : 0 }}–{{ Math.min(page * pageSize,
             filtered.length) }} of {{ filtered.length }} results
